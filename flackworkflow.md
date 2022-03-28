@@ -1,5 +1,10 @@
-name: pylint_validation
-on: pull_request
+name: Lint
+
+on:
+  push:
+    paths:
+      - '*.py'
+
 jobs:
   flake8_py3:
     runs-on: ubuntu-latest
@@ -7,7 +12,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v1
         with:
-          python-version: 3.8
+          python-version: 2.7.18
           architecture: x64
       - name: Checkout PyTorch
         uses: actions/checkout@master
@@ -16,6 +21,6 @@ jobs:
       - name: Run flake8
         uses: suo/flake8-github-action@releases/v1
         with:
-          checkName: 'flake8_py3'
+          checkName: 'flake8_py3'   # NOTE: this needs to be the same as the job name
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
